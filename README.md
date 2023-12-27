@@ -1,66 +1,31 @@
-## Foundry
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
-
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
+### Run
 
 ```shell
-$ forge build
+$ forge script src/ContractB.sol:ContractB -vvvv
 ```
+### Output 
 
-### Test
-
-```shell
-$ forge test
 ```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+== Logs ==
+  --------------------------------WEIRD BEHAVIOUR--------------------------------
+  ContractA deployed at 0x90193C961A926261B756D1E5bb255e67ff9498A1
+  ContractB deployed at 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  ContractA delegateCall sender 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38
+  ContractA delegateCall s_delegate 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  ContractB getOne called 0
+  ContractA delegateCall sender 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38
+  ContractA delegateCall s_delegate 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  ContractB getTwo called 0
+  --------------------------------EXPECTED BEHAVIOUR--------------------------------
+  ContractB deployed at 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  ContractA deployed at 0xDEb1E9a6Be7Baf84208BB6E10aC9F9bbE1D70809
+  ContractB deployed at 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  ContractBNoScript deployed at 0xD718d5A27a29FF1cD22403426084bA0d479869a0
+  ContractA delegateCall sender 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38
+  ContractA delegateCall s_delegate 0xD718d5A27a29FF1cD22403426084bA0d479869a0
+  ContractBNoScript getOne called 1
+  ContractA delegateCall sender 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38
+  ContractA delegateCall s_delegate 0xD718d5A27a29FF1cD22403426084bA0d479869a0
+  ContractBNoScript getTwo called 2
 ```
