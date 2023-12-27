@@ -17,7 +17,7 @@ contract ContractB is Script {
     }
 
     function getOne() public view returns (uint256) {
-        console.log("getOne ctr B called", s_one);
+        console.log("ContractB getOne called", s_one);
         return s_one;
     }
 
@@ -26,15 +26,15 @@ contract ContractB is Script {
     }
 
     function getTwo() public view returns (uint256) {
-        console.log("getTwo ctr B called", s_two);
+        console.log("ContractB getTwo called", s_two);
         return s_two;
     }
 
     function weirdBehaviour() public {
-        console.log("ContractB deployed at", address(this));
         // deploy ContractA
         ContractA contractA = new ContractA();
         console.log("ContractA deployed at", address(contractA));
+        console.log("ContractB deployed at", address(this));
         // set this contractB (this contract) as delegate
         contractA.setDelegate(address(this));
         // set one and two on ContractA
@@ -50,7 +50,12 @@ contract ContractB is Script {
         // deploy ContractA
         ContractA contractA = new ContractA();
         console.log("ContractA deployed at", address(contractA));
+        console.log("ContractB deployed at", address(this));
         ContractBNoScript contractBNoScript = new ContractBNoScript();
+        console.log(
+            "ContractBNoScript deployed at",
+            address(contractBNoScript)
+        );
         // set this contractB no script as delegate
         contractA.setDelegate(address(contractBNoScript));
         // set one and two on ContractA
@@ -63,9 +68,13 @@ contract ContractB is Script {
 
     function run() public {
         vm.startBroadcast();
-        console.log("-----------------WEIRD BEHAVIOUR-----------------");
+        console.log(
+            "--------------------------------WEIRD BEHAVIOUR--------------------------------"
+        );
         weirdBehaviour();
-        console.log("----------------EXPECTED BEHAVIOUR----------------");
+        console.log(
+            "--------------------------------EXPECTED BEHAVIOUR--------------------------------"
+        );
         expectedBehaviour();
         vm.stopBroadcast();
     }
@@ -75,15 +84,12 @@ contract ContractBNoScript {
     uint256 private s_one;
     uint256 private s_two;
 
-    bytes4 constant getOneSignature = bytes4(keccak256("getOne()"));
-    bytes4 constant getTwoSignature = bytes4(keccak256("getTwo()"));
-
     function setOne(uint256 one_) public {
         s_one = one_;
     }
 
     function getOne() public view returns (uint256) {
-        console.log("getOne ctr B called", s_one);
+        console.log("ContractBNoScript getOne called", s_one);
         return s_one;
     }
 
@@ -92,7 +98,7 @@ contract ContractBNoScript {
     }
 
     function getTwo() public view returns (uint256) {
-        console.log("getTwo ctr B called", s_two);
+        console.log("ContractBNoScript getTwo called", s_two);
         return s_two;
     }
 }

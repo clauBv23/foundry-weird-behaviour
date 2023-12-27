@@ -9,11 +9,10 @@ contract ContractA {
     address private s_delegate;
 
     function delegateCall(bytes memory data) public {
-        console.log("ctr A delegateCall called", msg.sender);
-        console.log("ctr A s_delegate", s_delegate);
+        console.log("ContractA delegateCall sender", msg.sender);
+        console.log("ContractA delegateCall s_delegate", s_delegate);
 
         (bool success, bytes memory returnData) = s_delegate.delegatecall(data);
-        // console.log("returnData", abi.decode(returnData, (uint256)));
         require(success, string(returnData));
     }
 
@@ -30,8 +29,7 @@ contract ContractA {
     }
 
     function getOne() public view returns (uint256) {
-        console.log("getOne ctr A called", s_one);
-
+        console.log("ContractA getOne called", s_one);
         return s_one;
     }
 
@@ -40,7 +38,7 @@ contract ContractA {
     }
 
     function getTwo() public view returns (uint256) {
-        console.log("getTwo ctr B called", s_two);
+        console.log(" ContractA getTwo called", s_two);
         return s_two;
     }
 }
